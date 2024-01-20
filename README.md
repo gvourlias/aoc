@@ -1,5 +1,5 @@
 # README
-This is a repository of my solutions to advent of code problems with go!  
+This is a repository of my solutions to advent of code problems with go and or other programming languages!  
 _(and maybe other projects? i already named the repo aoc, but heck who cares!)_
 
 "[Advent Of Code](https://adventofcode.com/)
