@@ -2,12 +2,12 @@ package main
 
 type tournament struct {
 	games         []game
-	contentsOfBag map[CubeType]int
+	tBag bag
 }
 
-func newTournament(contentsOfBag map[CubeType]int) tournament {
+func newTournament(tBag bag) tournament {
 	return tournament{
-		contentsOfBag: contentsOfBag,
+		tBag: tBag,
 	}
 }
 
@@ -19,7 +19,7 @@ func (t *tournament) totalSumOfPossibleGames() int {
 
 	sumOfGameIds := 0
 	for _, g := range t.games {
-		if g.isPosible(t.contentsOfBag) {
+		if g.isPosible(t.tBag) {
 			sumOfGameIds = sumOfGameIds + g.id
 		}
 	}

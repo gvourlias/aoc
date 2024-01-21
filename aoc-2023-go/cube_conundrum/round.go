@@ -5,7 +5,8 @@ import (
 )
 
 type round struct {
-	handsPlayed []hand
+	handsPlayed       []hand
+	highestCubePlayed map[CubeType]int
 }
 
 func newRound(roundData string) round {
@@ -17,9 +18,10 @@ func newRound(roundData string) round {
 		handsPlayed = append(handsPlayed, hand)
 	}
 
-	return round{
+	myRound := round{
 		handsPlayed: handsPlayed,
 	}
+	return myRound
 }
 
 func (r *round) isValid(cubeType CubeType, upperLimitOfCubeTypePlayed int) bool {
@@ -38,4 +40,21 @@ func (r *round) isValid(cubeType CubeType, upperLimitOfCubeTypePlayed int) bool 
 
 	}
 	return isValid
+}
+
+func (r *round) calcHighestNumberOfCubePlayed() {
+
+	highestCubePlayed := newCubeTypeStringToIntMap()
+
+	for _, hand := range r.handsPlayed {
+
+		for _, c := range ALL_CUBES_VALUES.cubes {
+			if hand.cubePlayed.cType == CubeType(c) && hand.numberPlayed > highestCubePlayed[CubeType(c)] {
+				highestCubePlayed[CubeType(c)] = hand.numberPlayed
+			}
+		}
+		
+	}
+
+	r.highestCubePlayed = highestCubePlayed
 }

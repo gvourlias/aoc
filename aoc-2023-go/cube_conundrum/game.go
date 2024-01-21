@@ -8,6 +8,7 @@ import (
 type game struct {
 	id     int
 	rounds []round
+	power  int
 }
 
 func newGame(gameData string) game {
@@ -29,22 +30,47 @@ func newGame(gameData string) game {
 		roundsPlayed = append(roundsPlayed, myRound)
 	}
 
-	return game{
+	myGame := game{
 		id:     gameId,
 		rounds: roundsPlayed,
 	}
+	return myGame
 }
 
-func (g *game) isPosible(contentsOfBag map[CubeType]int) bool {
+func (g *game) isPosible(b bag) bool {
 
 	isPosible := true
 	for _, round := range g.rounds {
-		if !round.isValid(Red, contentsOfBag[Red]) ||
-			!round.isValid(Blue, contentsOfBag[Blue]) ||
-			!round.isValid(Green, contentsOfBag[Green]) {
-			isPosible = false
-			break
+
+		for _, c := range ALL_CUBES_VALUES.cubes {
+			if !round.isValid(CubeType(c), b.bagContents[CubeType(c)]) {
+				isPosible = false
+				break
+			}
 		}
+
 	}
 	return isPosible
+}
+
+func (g *game) calcPower() {
+
+	power := 1
+	highestPlayed := newCubeTypeStringToIntMap()
+	for _, r := range g.rounds {
+
+		r.calcHighestNumberOfCubePlayed()
+		for _, c := range ALL_CUBES_VALUES.cubes {
+			if r.highestCubePlayed[CubeType(c)] > highestPlayed[CubeType(c)] {
+				highestPlayed[CubeType(c)] = r.highestCubePlayed[CubeType(c)]
+			}
+		}
+
+	}
+
+	for _, countCubeType := range highestPlayed {
+		power *= countCubeType
+	}
+
+	g.power = power
 }
