@@ -26,7 +26,7 @@ func TestMyCubeConundrum(t *testing.T) {
 			Blue:  10,
 		},
 	}
-	results := []int{8, 30}
+	results := []int{8, 2076}
 
 	for i, path := range filePaths {
 		startTime := time.Now()

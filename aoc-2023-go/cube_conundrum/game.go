@@ -39,9 +39,11 @@ func (g *game) isPosible(contentsOfBag map[CubeType]int) bool {
 
 	isPosible := true
 	for _, round := range g.rounds {
-		if !round.isValid(Red, contentsOfBag[Red]) || !round.isValid(Blue, contentsOfBag[Blue]) || !round.isValid(Green, contentsOfBag[Green]) {
+		if !round.isValid(Red, contentsOfBag[Red]) ||
+			!round.isValid(Blue, contentsOfBag[Blue]) ||
+			!round.isValid(Green, contentsOfBag[Green]) {
 			isPosible = false
-			break;
+			break
 		}
 	}
 	return isPosible

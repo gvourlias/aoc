@@ -26,10 +26,16 @@ func (r *round) isValid(cubeType CubeType, upperLimitOfCubeTypePlayed int) bool 
 	isValid := true
 
 	for _, handPlayed := range r.handsPlayed {
-		if handPlayed.getCubePlayed().cType == cubeType && handPlayed.numberPlayed > upperLimitOfCubeTypePlayed {
-			isValid = false
-			break;
+
+		if handPlayed.cubePlayed.cType != cubeType {
+			continue
 		}
+
+		if handPlayed.numberPlayed > upperLimitOfCubeTypePlayed {
+			isValid = false
+			break
+		}
+
 	}
 	return isValid
 }

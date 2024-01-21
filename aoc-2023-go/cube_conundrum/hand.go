@@ -27,7 +27,3 @@ func newHand(handData string) hand {
 		cubePlayed:   cube,
 	}
 }
-
-func (h *hand) getCubePlayed() cube {
-	return h.cubePlayed
-}
